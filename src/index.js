@@ -37,6 +37,7 @@ const element2 = (
     </div>    
 ); 
 
+/*
 function tick() {
     const element = (
         <div>
@@ -47,8 +48,81 @@ function tick() {
     ReactDOM.render(element, document.getElementById('root'));
 }
 setInterval(tick, 1000);
+*/
+
 
 // ReactDOM.render(
 //     element2,
 //     document.getElementById('root')
 // );
+
+/*
+function Clock(props) {
+    return (
+        <div>
+            <h1>Hello, world!</h1>
+            <h2>It is {props.date.toLocaleTimeString()}</h2>
+        </div>
+    );
+}
+
+function tick() {
+    ReactDOM.render(
+        <Clock date={new Date()}></Clock>,
+        document.getElementById('root')
+    );
+}
+
+setInterval(tick, 1000);
+*/
+
+function FormatetedDate(props) {
+    return <h2>It is {props.date.toLocaleTimeString()}.</h2>;
+}
+
+class Clock extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {date: new Date(), couter1: 90};
+
+    }
+
+    componentDidMount() {
+        console.log('componentDidMount');
+        this.timerId = setInterval(() => this.tick(), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId);
+    }
+
+    tick() {
+        this.setState((state, props) => ({
+            date: new Date(),
+            comment: 'Hello',
+            couter: state.couter1 +  props.increment 
+        }));
+
+    }
+
+
+
+    render() {
+        return (
+            <div>
+                <FormatetedDate date={this.state.date} />
+                <h1>Hello, world!91</h1>
+                <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+                <h3>{this.state.couter}</h3>
+            </div>
+        );
+    };
+}
+
+
+
+
+ReactDOM.render(
+    <Clock increment={12}></Clock>,
+    document.getElementById('root')
+);
