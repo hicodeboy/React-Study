@@ -119,10 +119,63 @@ class Clock extends React.Component {
     };
 }
 
+class Form extends React.Component {
+     handleSubmit(e) {
+        e.preventDefault();
+        console.log('You clicked submit.');
+    }
 
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+            <button type="submit">submit</button>
+             </form>
+        );
+    } 
+}
+
+
+class Toggle extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {isToggleOn: true};
+
+        // 为了在回调中使用 `this`, 这个绑定是必不可少的
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+        }));
+    }
+
+    render() {
+        return (
+            <button onClick={this.handleClick}>
+                {this.state.isToggleOn ? 'ON': 'OFF'}
+            </button>
+        );
+    }
+}
+
+class LoggingButton extends React.Component {
+    handleClick = () =>  {
+        console.log('this is:', this);
+    }
+    render() {
+        return (
+            <button onClick={this.handleClick}>
+                Click me
+            </button>
+        );
+    }
+}
 
 
 ReactDOM.render(
-    <Clock increment={12}></Clock>,
+    // <Clock increment={12}></Clock>,
+    // <Form />,
+    <LoggingButton />,
     document.getElementById('root')
 );
